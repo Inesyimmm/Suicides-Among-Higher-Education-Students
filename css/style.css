@@ -66,6 +66,12 @@ a:active {
     margin-top: 5px;
 }
 
+.studentID {
+    color: floralwhite;
+    margin-top: 5px;
+    text-align: right;
+}
+
 .lead {
     /*color: #d7f5ff;*/
     color: ghostwhite;
