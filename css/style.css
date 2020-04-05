@@ -1,0 +1,195 @@
+body {
+    background-color: #a2aab4;
+}
+
+a:link {
+    color: #fff8cc;
+    text-decoration:underline;
+}
+a:visited {
+    color: #d7f5ff;
+    text-decoration:none;
+}
+a:hover {
+    color: #fedb78;
+    text-decoration:none;
+}
+a:active {
+    color:#FFFFFF;
+    text-decoration:none;
+}
+
+#section-intro {
+    /*background-image: url(../images/harvard-night-2-dulled.jpg);*/
+    background-size: cover;
+    padding: 0;
+}
+
+#cover-container {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+#suicide-dataset {
+    text-decoration: underline;
+    color: #d6f8ff;
+}
+
+.cover-header {
+    font-size: 80px !important;
+    text-align: center;
+}
+
+.cover-intro {
+    text-align: center;
+}
+
+.df-header {
+    /*color: #d6f8ff;*/
+    margin-left: 51%;
+    color: floralwhite;
+}
+
+.df-subheader {
+    /*color: #d6f8ff;*/
+    color: floralwhite;
+}
+
+.bg-header, .intention-header, .suicidenum-header{
+    /*color: #d6f8ff;*/
+    color: floralwhite;
+}
+
+.references {
+    color: floralwhite;
+    margin-top: 5px;
+}
+
+.lead {
+    /*color: #d7f5ff;*/
+    color: ghostwhite;
+    text-align: justify;
+}
+
+.leadpoints {
+    /*color: #d7f5ff;*/
+    font-size: 22px;
+    color: ghostwhite;
+    text-align: justify;
+    font-weight: bold;
+}
+
+strong.definition {
+    cursor: pointer;
+}
+
+#hint-container {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: fit-content;
+}
+
+#intend-info {
+    width: 50%;
+    margin-left: 70px;
+}
+
+.conclusion {
+    font-size: 16px;
+}
+
+.conclusion-points {
+    font-size: 20px;
+    color: #fff9ec;
+}
+
+.conclusion-intro {
+    color: #fff9ec;
+}
+
+.well {
+    margin-top: 40px;
+}
+
+.well-white {
+  background-color: white;
+  color: black;
+}
+
+#fullpage {
+  padding-top: 80px;
+}
+
+#quotes {
+  font-size: 20px;
+}
+
+/* FULLPAGE */
+
+#fp-nav ul li a span {
+  background: whitesmoke;
+}
+
+#prevention {
+  font-size: 25px;
+}
+
+#link {
+  font-weight: bold;
+}
+
+#question {
+  font-weight: bold;
+}
+
+.top-padding {
+    padding-top: 20px;
+}
+
+
+sup.citation {
+    cursor: pointer;
+}
+
+#sexrate-par, #agerate-par {
+    margin-bottom: 0;
+}
+
+#sexcategory-button, #agecategory-button, #cateth-button {
+    color: #faffe3;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    text-align: left;
+}
+
+#polarinfo, #message {
+    color: #faffe3;
+    font-weight: bold;
+    text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    text-align: left;
+}
+
+.block-center {
+    display: block;
+    margin: auto;
+}
+
+
+#campus-info {
+    text-align: center;
+}
+
+#campus-info h4, #campus-info h5 {
+    text-shadow: none;
+}
+
+#college-quick-info {
+    height: 5.5em;
+}
+
+#college-image {
+    width: 128px;
+    height: 128px;
+}

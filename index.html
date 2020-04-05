@@ -1,0 +1,495 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/html">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Suicide Among Higher Education Students">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suicide Among Higher Education Students</title>
+
+  <link rel="stylesheet" href="css/bootstrap.slate.min.css">
+  <link rel="stylesheet" href="css/jquery.fullPage.css" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" type="text/css" href="https://rawgit.com/jamesleesaunders/d3.ez/master/dist/d3-ez.css" />
+  <link rel="icon" type="image/png" href="images/woman-gray.png">
+
+  <style>
+
+    .axis path, .axis line {
+      stroke: steelblue;
+      stroke-width: 3px;
+    }
+    .axis text {
+      font-family: Athelas;
+      font-size: 12px;
+      color: #eeeeee;
+      text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    }
+    .xaxis {
+      stroke: #e7f5ff;
+      stroke-width: 1px;
+    }
+    .yaxis {
+      stroke: #e7f5ff;
+      stroke-width: 1px;
+    }
+    .xaxis text, .yaxis text, .sexratetext, .ageratetext {
+      font-family: Athelas;
+      font-size: 16px;
+      color: #eeeeee;
+      /*text-shadow: -1px -1px 0 rgba(0,0,0,0.3);*/
+    }
+    .line {
+      fill: none;
+      stroke: #fff8cc;
+      stroke-width: 3;
+    }
+    .dot {
+      fill: #fff8cc;
+      stroke: #fff8bb;
+    }
+    .overlay {
+      fill: none;
+      pointer-events: all;
+    }
+    .focus circle {
+      fill: #e0ff4a;
+    }
+    .focus text {
+      font-size: 14px;
+      font-family: Athelas;
+      color: #eeeeee;
+      text-shadow: -1px -1px 0 rgba(0,0,0,0.3);
+    }
+    .tooltip {
+      fill: white;
+      stroke: #000;
+    }
+    .tooltip-year, .tooltip-deaths {
+      font-weight: bold;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <div id="fullpage">
+
+    <section class="section" id="section-intro">
+      <div class="container" id="cover-container">
+        <h1 class="cover-header">Suicides Among Higher Education Students</h1>
+        <h2 class="cover-intro">Estimating suicide among higher education students in England and Wales</h2>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="bg-header">Background</h1>
+        <div class="row">
+          <div class="col-sm-6">
+            <p class="lead"><strong class="definition">Suicide</strong>, the second-leading cause of death among college students, claims the lives of approximately <strong>5000</strong> college-age people each year. The number is within the minimum estimate because of many suicide cases reported as accidents.</p>
+            <p class="lead">Over the years, researchers have analyzed a variety of issues concerning college student suicide, including causes, rate and solutions. The Center for Disease Control and Prevention (CDC, 1995) claims that suicide is the <strong>number-two killer</strong> of people between 20-24.<sup class="citation">[1]</sup></p>
+            <p class="lead">A sample of 1455 college students from four higher education institutions was collected to examine issues of depression and suicide.<sup class="citation">[2]</sup></p>
+            <p class="lead">According to the American College Health Association, <strong>1 in 10</strong> college students reported having seriously considered suicide in the previous year.<sup class="citation">[3]</sup></p>
+          </div>
+          <div class="col-sm-6">
+            <div id="american-scene">
+              <img class="img-rounded" id="american-bg" src="images/KCLstudent.jpg">
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h1 class="df-header">Introduction</h1>
+        <div class="row">
+          <div class="col-sm-6">
+            <svg id="suicide-def" >
+            </svg>
+            <div class="container" id="hint-container">
+              <h5 class="age-ten">deaths from intentional self-harm</h5>
+              <h5 class="age-fifteen">deaths where the intent was undetermined</h5>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <h3 class="df-subheader">Suicide Definition</h3>
+            <p class="lead">The National Statistics definition of suicide includes all deaths from intentional self-harm for persons aged 10 years and over, and deaths where the intent was undetermined for those aged 15 years and over.</p>
+            <h3 class="df-subheader">Research Problem</h3>
+            <p class="lead">According to the Office for National Statistics (ONS), students in higher Education in England and Wales kill themselves at the rate of almost two every week.
+              All of the above indicates that suicide among higher education students happens relatively frequently.
+              Recognizing the seriousness of the problem, the <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/datasets/estimatingsuicideamonghighereducationstudentsenglandandwales ">dataset containing estimates of suicides among higher education students of England and Wales by sex, age and ethnicity from July 2001 to July 2017</a> is chosen to be analyzed and visualized,
+              aiming to show the statistical results and provide insight into the issue of higher education student suicides</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="intention-header">Suicide intention is around us.</h2>
+        <p class="lead">
+          There are 100 students from higher educational institutions.
+        </p>
+
+        <div class="row">
+          <div class="col-xs-5">
+            <div id="affected">
+              <svg id="suicide-intend" >
+              </svg>
+            </div>
+          </div>
+
+          <div class="col-xs-7" id="intend-info">
+            <div class="lead">
+              <p>
+                <span id="fact">How many college students having intended suicide?</span>
+                <button class="btn btn-primary" id="intention-button">
+                    Next
+                </button>
+              </p>
+            </div>
+            <hr>
+
+            <blockquote class="lead" id="survivor-quote" style="display:none;">
+              <span id="quote-text">According to the American College Health Association, 1 in 10 college students reported having seriously considered suicide.</span>
+            </blockquote>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="suicidenum-header">How many higher education students have died by suicide?</h2>
+        <p class="lead">
+          This figure shows the number of higher education student suicides between the 12 months ending July 2001 and the 12 months ending July 2017.
+        </p>
+        <p class="lead">
+          The number of suicides in HE students was at its <strong>lowest</strong> in the 12 months ending July <strong>2001</strong>, when the series began.
+          It is important to note that the figure is based on low numbers, which leads to volatility in the time series.<sup class="citation">[4]</sup>
+          The number of suicides in the most recent period (the 12 months ending July 2017) is 95.
+        </p>
+        <div class="container">
+          <div class="row row-eq-height">
+            <div class="col-sm-9">
+              <div id="suicidenum-linechart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="suicidenum-header">How about the suicide rate of HE students?</h2>
+        <p class="lead">
+          This figure shows the rate per 100,000 of higher education student suicides by year, deaths registered in England and Wales.
+          Notice that crude rates per 100,000 students registered with HESA. UK populations prior to the 12 months ending July 2013 have been used and adjusted to create an England and Wales population.
+        </p>
+        <p class="lead">
+          The rate has remained stable at <strong>4.7</strong> deaths per 100,000 students since the 12 months ending July <strong>2015</strong>.
+          This is higher than in most of the earlier years studied, although the small numbers per year make it difficult to identify statistically significant differences.
+        </p>
+        <div class="container">
+          <div class="row row-eq-height">
+            <div class="col-sm-9">
+              <div id="suiciderate-linechart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="suicidenum-header">How does the rate of higher education student suicide differ between sexes and by the type of study?</h2>
+        <div class="row">
+          <div class="col-sm-6">
+            <p class="lead" id="sexrate-par">The figure shows the rate per 100,000 higher education student suicides by sex, deaths registered in England and Wales,
+              between the 12 months ending July 2013 and the 12 months ending July 2017.</p>
+            <p class="lead">As can be seen, <strong>the rate for suicide in female students is significantly lower than the rate in males.</strong></p>
+            <div id="sextype-barchart"></div>
+          </div>
+          <div class="col-sm-6">
+            <p class="lead" id="sexcategory-button">What if looking between categories?</p>
+            <p class="lead">Click the button below to see what it looks like:</p>
+            <p class="lead">
+              <button class="btn btn-primary" id="studytype-button">
+                Study Type
+              </button>
+              <button class="btn btn-primary" id="studylevel-button">
+                Study Level
+              </button>
+              <button class="btn btn-primary" id="studyyear-button">
+                Year of Study
+              </button>
+            </p>
+            <div id="catrate"></div>
+            <div id="levelrate"></div>
+            <div id="yearrate"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="suicidenum-header">How does the rate of suicides differ between age groups and by the type of study?</h2>
+        <div class="row">
+          <div class="col-sm-6">
+            <p class="lead">As we can see from the figure below, <strong>those aged 20 years and under had a significantly lower suicide rate than the other age groups.</strong></p>
+            <p class="lead" id="agecategory-button">However, there are some significant differences when comparing between categories within age groups...</p>
+            <div id="agetype-barchart"></div>
+          </div>
+          <div class="col-sm-6">
+            <p class="lead">For those aged 21 to 24 years and 25 to 29 years the rate of death by suicide in those studying an undergraduate degree was significantly higher than that of postgraduates.
+              In those not in their first year of study, students aged under 20 years had a significantly lower rate than the other age groups.</p>
+            <!-- <p class="lead">Click the button below to see what it looks like:</p> -->
+            <p class="lead">
+              <button class="btn btn-primary" id="agetype-button">
+                Study Type
+              </button>
+              <button class="btn btn-primary" id="agelevel-button">
+                Study Level
+              </button>
+              <button class="btn btn-primary" id="ageyear-button">
+                Year of Study
+              </button>
+            </p>
+            <div id="agetyperate"></div>
+            <div id="agelevelrate"></div>
+            <div id="ageyearrate"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="suicidenum-header">How does the rate of higher education student suicides differ between ethnicities?</h2>
+        <div class="row">
+          <div class="col-sm-6">
+            <p class="lead">This polar area chart shows the difference in suicide rates between ethnicities for the period 12 months ending July 2013 to 12 months ending July 2017.</p>
+            <p class="lead" id="ethcategory-button"><strong>Overall, there was a significant difference in suicide rates between students recorded as White and students recorded as Black. </strong></p>
+            <div id="polarinfo">Rate: <span id="message"></span></div>
+            <div id="ethtype-barchart"></div>
+            <br/>
+          </div>
+          <div class="col-sm-6">
+            <p class="lead" id="cateth-button">What if looking between categories?</p>
+            <p class="lead">Click the button below to see what it looks like:</p>
+            <p class="lead">
+              <button class="btn btn-primary" id="ethtype-button">
+                Study Type
+              </button>
+              <button class="btn btn-primary" id="ethlevel-button">
+                Study Level
+              </button>
+              <button class="btn btn-primary" id="ethyear-button">
+                Year of Study
+              </button>
+            </p>
+            <div id="ethtyperate"></div>
+            <div id="ethlevelrate"></div>
+            <div id="ethyearrate"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="suicidenum-header">How does the rate of higher education student suicides compare with the rate of suicide in the general population?</h2>
+        <p class="lead">
+          This figure shows the rate of suicide by age group in the general population (including higher education students) and in higher education students, deaths registered in England and Wales,
+          between the 12 months ending July 2013 and the 12 months ending July 2017 combined.
+        </p>
+        <p class="lead">
+          Obviously, the suicide rate og higher education student is lower than that of general population by every age group.
+          But with the age increasing, the rates of both HE student and general population suicide appear an upward trend, which may be related to more stress in elder people's life.
+        </p>
+        <div class="container">
+          <div class="row row-eq-height">
+            <div class="col-sm-9">
+              <div id="group-barchart"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+
+        <h2 class="suicidenum-header">Conclusion</h2>
+
+        <div class="row">
+          <div class="col-md-8">
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#step1" aria-controls="home" role="tab" data-toggle="tab" class="conclusion">Main Points</a></li>
+              <li role="presentation"><a href="#step4" aria-controls="settings" role="tab" data-toggle="tab" class="conclusion">Statisticians comment</a></li>
+              <li role="presentation"><a href="#step5" aria-controls="step5" role="tab" data-toggle="tab" class="conclusion">Where to go for help</a></li>
+            </ul>
+
+            <!-- Tab panes -->
+            <div class="tab-content top-padding" id="help-tabs">
+              <div role="tabpanel" class="tab-pane active" id="step1">
+                <p class="leadpoints">Here are some overall points: </p>
+                <ol>
+                  <li class="conclusion-points">The rate of suicide in the 12 months ending July 2017 for higher education students in England and Wales was 4.7 deaths per 100,000 students,
+                    which equates to 95 suicides; this is higher than in most of the earlier years studied, although the small numbers per year make it difficult to identify statistically significant differences.
+                  </li>
+                  <li class="conclusion-points">
+                    Between the 12 months ending July 2013 and the 12 months ending July 2016, higher education students in England and Wales had a significantly lower suicide rate compared with the general population of similar ages.
+                  </li>
+                  <li class="conclusion-points">
+                    Male higher education students had a significantly higher rate of suicide compared with female students.
+                  </li>
+                  <li class="conclusion-points">
+                    Suicide rate of higher education students tends to be greater in senior age group.
+                  </li>
+                </ol>
+              </div>
+
+              <div role="tabpanel" class="tab-pane" id="step4">
+                <p class="leadpoints">Sarah Caul, Senior Research Officer for the ONS, said: </p>
+                <p class="conclusion-points">"To help provide insight into the issue of student suicides we have produced new analysis examining suicide trends among higher education students.</p>
+                <p class="conclusion-points">"The rate of suicide in 2016 to 2017 in higher education students was 4.7 deaths per 100,000 students. Although higher than in earlier years, the comparatively low numbers of suicides per year make it challenging to identify significant differences.</p>
+                <p class="conclusion-points">"Meanwhile, the rate for suicide in female students is significantly lower than the rate in males. This is also observed when looking at overall student suicides as well as the differences in studying patterns.<sup class="citation">[5]</sup></p>
+              </div>
+
+              <div role="tabpanel" class="tab-pane" id="step5">
+                <p class="leadpoints">If you are struggling to cope...</p>
+
+                <dl>
+                  <dt class="conclusion-points">Please call Samaritans on 116 123 (UK and Ireland), email jo@samaritans.org, or visit the <a href="https://www.samaritans.org/how-we-can-help/" target="_blank">Samaritans website</a> to find details of the nearest branch.</dt>
+                  <dd class="conclusion-intro">Samaritans is available round the clock, every single day of the year, providing a safe place for anyone struggling to cope, whoever they are, however they feel, whatever life has done to them.</dd>
+                  <br>
+                  <dt class="conclusion-points">Resources are also available online: <a href="http://www.4mentalhealth.com/" target="_blank">U can Cope</a></dt>
+                  <dd class="conclusion-intro">
+                    This website includes a film and resources that are designed for people in distress and those trying to support them, to instil hope, promote appropriate self-help and inform people regarding useful strategies and how they can access help and support
+                  </dd>
+                  <br>
+                </dl>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="well">
+              <h3>
+                When you suffer from stress and anxiety, remember to <span class="text-danger">open your heart</span> and <span class="text-danger">seek for help</span>.
+              </h3>
+              <h3>
+                In the UK, <a href="https://www.samaritans.org/how-we-can-help/" class="text-info">Samaritans</a> can be contacted on <a href="tel:116123" class="text-info">116123</a> or email jo@samaritans.org. 800.656.HOPE.
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section">
+      <div class="container">
+        <h2 class="suicidenum-header">About this project</h2>
+
+        <div class="row">
+          <div class="col-md-6">
+            <p class="references">This was a coursework project for 7CCSMSDV – Simulation and Data Visualisation.
+            The work was done by Yin Zhang, student number: 1929825.</p>
+            <h4 class="references">Strengths of the implementation: </h4>
+            <ol>
+              <li class="suicidenum-header">
+                Preprocess the raw data and convert it into .csv format, which is convenient for JavaScript to operate.
+              </li>
+              <li class="suicidenum-header">
+                Interactive simulation is implemented to help describe the problem more vividly and enrich the elements of the web page.
+              </li>
+              <li class="suicidenum-header">
+                Use D3.js to generate interactive charts including line chart, bar chart, stack barchart, group barchart as well as polar area chart
+                to visualize the analytic results. The interactive function such as tooltip clearly represents the data in real time.
+              </li>
+              <li class="suicidenum-header">
+                JS template is used to structure the layout and beautify the appearance of the project website.
+              </li>
+            </ol>
+
+            <h4 class="references">Limitation of the implementation: </h4>
+            <ol>
+              <li class="suicidenum-header">
+                More types of interactive charts such as multi-line chart and complex combined can be implemented to display the data more comprehensively.
+              </li>
+              <li class="suicidenum-header">
+                Because the lack of skills to master D3, some dynamic effects didn't meet expectations. I will learn more to complete the project in the future.
+              </li>
+              <li class="suicidenum-header">
+                Due to the limited dataset content, the analytic results are not forward-looking enough. Deeper research should be taken to improve the conclusion.
+              </li>
+              <li class="suicidenum-header">
+                JS template is used to structure the layout and beautify the appearance of the project website.
+              </li>
+            </ol>
+            <p class="conclusion-intro">If you want to see details, please <a href="http://hendrik.strobelt.com">View this project on GitHub</a>
+          </div>
+
+          <div class="col-md-6 ">
+            <h3 class="references">References</h3>
+            <ol>
+              <li class="suicidenum-header">
+                <a href="https://www.cdc.gov/mmwr/preview/mmwrhtml/00049859.htm">Youth Risk Behavior Surveillance: National College Health Risk Behavior Survey -- United States, 1995</a>.
+              </li >
+              <li class="suicidenum-header">
+                <a href="https://www.researchgate.net/publication/232565158_Suicide_and_Depression_Among_College_Students_A_Decade_Later ">Suicide and depression among college students: A decade later</a>.
+              </li>
+              <li class="suicidenum-header">
+                <a href="https://www.acha.org/documents/ncha/NCHA-II_FALL_2017_REFERENCE_GROUP_EXECUTIVE_SUMMARY.pdf ">American College Health Association—National College Health Assessment: Reference Group Executive Summary</a>.
+              </li>
+              <li class="suicidenum-header">
+                <a href="https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/deaths/articles/estimatingsuicideamonghighereducationstudentsenglandandwalesexperimentalstatistics/2018-06-25 ">Estimating suicide among higher education students, England and Wales: Experimental Statistics</a>.
+              </li>
+              <li class="suicidenum-header">
+                <a href="http://www.chinadaily.com.cn/a/201806/25/WS5b30d095a3103349141deaad.html ">Toll of students who end it all by suicide revealed by ONS</a>.
+              </li>
+            </ol>
+          </div>
+        </div>
+    </section>
+
+    </div>
+
+    <!-- Load JS libraries: jQuery, bootstrap, D3 -->
+    <script src="js/lib/jquery.min.js "></script>
+    <script src="js/lib/bootstrap.min.js "></script>
+    <script src="js/lib/malarkey.min.js "></script>
+    <script src="js/lib/d3-ease.v1.min.js "></script>
+    <script src="js/lib/d3.legend.js "></script>
+    <script src="js/lib/jquery.fullPage.min.js "></script>
+    <script src="js/lib/d3.v5.js "></script>
+    <script src="js/lib/d3.v5.min.js "></script>
+    <script src="js/lib/d3-ez.js"></script>
+
+    <!-- Your implementation -->
+    <script src="js/maindebug.js "></script>
+    <script src="js/suicide-intension.js "></script>
+    <script src="js/suicidenumber.js "></script>
+    <script src="js/suiciderate.js "></script>
+    <script src="js/ratebysex.js "></script>
+    <script src="js/categoryrate.js"></script>
+    <script src="js/ratebyage.js"></script>
+    <script src="js/categoryage.js"></script>
+    <script src="js/ethnicitypolar.js"></script>
+    <script src="js/categoryeth.js"></script>
+    <script src="js/agegroupbarchart.js"></script>
+
+</body>
+</html>
