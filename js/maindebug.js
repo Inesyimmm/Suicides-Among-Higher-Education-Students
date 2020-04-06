@@ -45,7 +45,7 @@ let imagedis = svg.append("image")
     //       .show();
     //});
 imagedis.transition()
-    .duration(6000)
+    .duration(10000)
     .ease(d3.easeLinear)
     .attr("transform",`translate(${450}, ${170})`)
     .style("opacity", 1);
@@ -59,7 +59,7 @@ let suicideimg1 = svg.append("image")
     .attr("xlink:href", "images/woman-red.png")
     .attr("transform",`translate(${105}, ${170})`);
 
-suicideimg1.transition().delay(3600)
+suicideimg1.transition().delay(6400)
     .ease(d3.easeLinear)
     .style("opacity", 1)
     .attr("transform",`translate(${105}, ${170})`);
@@ -73,7 +73,7 @@ let suicideimg2 = svg.append("image")
     .attr("xlink:href", "images/woman-red.png")
     .attr("transform",`translate(${180}, ${170})`);
 
-suicideimg2.transition().delay(4000)
+suicideimg2.transition().delay(7000)
     .ease(d3.easeLinear)
     .style("opacity", 1)
     .attr("transform",`translate(${180}, ${170})`);
